@@ -237,7 +237,51 @@ def longest_collatz(nums):
     for count in chain:
         largest = max(largest, count)
     
-    return chain[largest]        
+    return chain[largest] 
+
+def factorial(num):
+    if num == 0 or num == 1:
+        return 1
+    else:
+        return num * factorial(num - 1)
+
+def sum_factorial(num):
+    
+    fac = factorial(num)
+    return sum(int(digit) for digit in str(fac))
+
+def fibonacci_rec(num):
+    
+    if num == 1 or num == 2:
+        return 1
+    else:
+        return fibonacci(num - 1) + fibonacci(num - 2)
+
+def fibonacci_iter():
+    first, second = 1, 1
+    count = 1
+    while len(str(first)) < 1000:
+        first, second = second, first + second
+        count += 1
+    return count
+
+    
+def fib_digits():
+    num = 12
+    while True:
+        if len(str(fibonacci(num))) == 1000:
+            return num  
+        num += 1
+
+def digit_fact():
+    l = []
+    num = 11
+    while num < 50000:
+        s = s = sum(factorial(int(digit)) for digit in str(num))
+        if s == num:
+            l.append(num)
+        num += 1
+    return sum(l)
     
 if __name__=="__main__":
     
@@ -298,5 +342,7 @@ if __name__=="__main__":
             
     #print(grid_product(inp1))
     #print(longest_collatz(1000000))
-    
+    #print(sum_factorial(100))
+    #print(fibonacci_iter())
+    print(digit_fact())
     
