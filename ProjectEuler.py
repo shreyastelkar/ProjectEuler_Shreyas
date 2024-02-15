@@ -157,8 +157,14 @@ def adj_prod(inp, n):
         
     return cur_prod
 
-def sum_primes():
-    
+def sum_primes(num):
+    #sum of primes up to n
+    res = 0
+    for n in range(num):
+        if is_prime(n):
+            res += n
+    return res
+
 
 
 if __name__=="__main__":
@@ -170,7 +176,7 @@ if __name__=="__main__":
     #print(smallest_multiple())
    # print(sum_square())
     #print(power_sum())
-    print(nthprime(10001))
+    #print(nthprime(10001))
     #print(pythagorean())
     
     inp = "73167176531330624919225119674426574742355349194934"\
@@ -195,3 +201,4 @@ if __name__=="__main__":
     "71636269561882670428252483600823257530420752963450"
     
     #print(adj_prod(inp, 13))
+    #print(sum_primes(2000000))
