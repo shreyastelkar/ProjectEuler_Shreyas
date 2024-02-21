@@ -327,6 +327,86 @@ def name_scores():
     
     return total_score
 
+# def factors(n):
+#     fac = []
+#     for i in range(1, n + 1):
+#         if n % i == 0:
+#             fac.append(i)
+#     return fac
+
+# def triangle_factors():
+#     d = {}
+#     n = 1
+#     i = 1
+#     while len(factors(n)) < 501:
+#         i += 1
+#         n = int((i * (i + 1)) / 2)  # get sum
+#     return n
+
+import math
+
+def factors(n):
+    fac = set()
+    for i in range(1, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            fac.add(i)
+            fac.add(n // i)
+    return list(fac)
+
+def triangle_factors():
+    i = 1
+    n = 1
+    while len(factors(n)) <= 500:
+        i += 1
+        n = n + i  
+    return n
+
+def num_letter_count():
+    #single = [3, 3, 5, 4, 4, 3, 5, 5, 4, 3, 6, 6]
+    pass
+
+def dbase_palindrome():
+    res = 0
+    for num in range(1000000):
+        if bin(num)[2:] == bin(num)[2:][::-1] and str(num) == str(num)[::-1]:
+            res += num
+    return res
+
+def truncatable_primes():
+    count = 0
+    num = 11
+    res = 0
+    not_trunc = False
+    while count < 11:
+        for i in range(0, len(str(num))):
+            if not is_prime(int(str(num)[i:])) or not is_prime(int(str(num)[:(i + 1)])):
+                not_trunc = True
+                break
+        if not_trunc == False:  
+            res += num
+            count += 1
+        else:
+            not_trunc = False
+        num += 1
+    return res
+
+def self_powers():
+    res = 0
+    for i in range(1, 1001):
+        res += i ** i 
+    return str(res)[-10:]
+
+from itertools import permutations
+
+def number_permutations(number):
+    # Convert the number to a list of its digits
+    digits = [digit for digit in number]
+    
+    # Generate permutations of digits
+    digit_perms = permutations(digits)
+    perms = [int(''.join(perm)) for perm in digit_perms]
+    return perms[999999]
+
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -492,4 +572,9 @@ if __name__=="__main__":
 "53503534226472524250874054075591789781264330331690"
 
 #print(large_sum(inp2))
-print(name_scores())
+#print(name_scores())
+#print(triangle_factors())
+#print(dbase_palindrome())
+#print(truncatable_primes())
+#print(self_powers())
+#print(number_permutations('0123456789'))
