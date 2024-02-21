@@ -470,7 +470,19 @@ def counting_sundays():
                 day_type += 1
         cur_year += 1
     return res
-        
+
+def permuted_multiples():
+    
+    for num in range(10, 1000000):
+        found_num = True
+        for i in range(2, 7):
+            if sorted(str(num)) != sorted(str(num*i)):
+                found_num = False
+                break
+        if found_num == True:
+            return num
+    return False
+
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -646,4 +658,5 @@ if __name__=="__main__":
 #print(distinct_powers())
 #print(sub_str_div())
 #print(champ_constant())
-print(counting_sundays())
+#print(counting_sundays())
+print(permuted_multiples())
