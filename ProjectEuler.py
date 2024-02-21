@@ -327,22 +327,6 @@ def name_scores():
     
     return total_score
 
-# def factors(n):
-#     fac = []
-#     for i in range(1, n + 1):
-#         if n % i == 0:
-#             fac.append(i)
-#     return fac
-
-# def triangle_factors():
-#     d = {}
-#     n = 1
-#     i = 1
-#     while len(factors(n)) < 501:
-#         i += 1
-#         n = int((i * (i + 1)) / 2)  # get sum
-#     return n
-
 import math
 
 def factors(n):
@@ -407,6 +391,64 @@ def number_permutations(number):
     perms = [int(''.join(perm)) for perm in digit_perms]
     return perms[999999]
 
+def dig_fifth_powers():
+    res = 0
+    for num in range(2, 1000000):
+        cur_sum = 0
+        for dig in str(num):
+            cur_sum += (int(dig) ** 5)
+        if cur_sum == num:
+            res += num
+    return res
+
+def distinct_powers():
+    s = set()
+    for a in range(2, 101):
+        for b in range(2, 101):
+            s.add(a ** b)
+    return len(s)
+
+def sub_str_div():
+    num = '0123456789'
+    divisor_l = [2, 3, 5, 7, 11, 13, 17]
+    res = 0
+    
+    
+    l_digits = [dig for dig in num]
+    l_perm = permutations(l_digits)
+    l = [int(''.join(perm)) for perm in l_perm if perm[0] != '0']
+    
+    for num in l:
+        not_sub = True
+        ind = 0
+        n = str(num)
+        for i in range(1, 8):
+            if (int(n[i] + n[i + 1] + n[i + 2]) % divisor_l[ind] == 0):
+                ind += 1
+            else:
+                not_sub = False
+                break
+        if not_sub:
+            res += num
+    return res
+
+def champ_constant():
+    res_str = ""
+    for nums in range(1, 10000000):
+        res_str += str(nums)
+    
+    return int(res_str[0]) * int(res_str[9]) * int(res_str[99]) * int(res_str[999]) * int(res_str[9999]) * int(res_str[99999]) * int(res_str[999999])
+
+from enum import Enum
+def counting_sundays():
+    #Simulate days from (1 Jan 1901) to (31 Dec 2000) and count Sundays that fell on the first of the month
+    #reset day after hitting days_month
+
+    cur_year = 1900
+    day = 1
+    days_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    
+    
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -578,3 +620,7 @@ if __name__=="__main__":
 #print(truncatable_primes())
 #print(self_powers())
 #print(number_permutations('0123456789'))
+#print(dig_fifth_powers())
+#print(distinct_powers())
+#print(sub_str_div())
+print(champ_constant())
