@@ -441,14 +441,36 @@ def champ_constant():
 
 from enum import Enum
 def counting_sundays():
-    #Simulate days from (1 Jan 1901) to (31 Dec 2000) and count Sundays that fell on the first of the month
+    #Simulate days from (1 Jan 1900) to (31 Dec 2000) and count Sundays that fell on the first of the month, only count from 1901 to 2000
     #reset day after hitting days_month
-
+    res = 0
     cur_year = 1900
-    day = 1
+    day_type = 0
+    day_types = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     days_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    #months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     
-    
+    #itterate through the years
+    while cur_year != 2001:
+        for month, d in enumerate(days_month):
+            if month == 1:
+                if (cur_year % 4 == 0 and cur_year % 100 != 0) or (cur_year % 400 == 0):
+                    #check century
+                    days = 29
+                else:
+                    days = 28
+            else:
+                days = d 
+            
+            for day in range(1, days + 1):
+                #check sunday
+                if day == 1:
+                    if day_types[(day_type % len(day_types))] == 'Sunday' and cur_year >= 1901:
+                        res += 1
+                day_type += 1
+        cur_year += 1
+    return res
+        
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -623,4 +645,5 @@ if __name__=="__main__":
 #print(dig_fifth_powers())
 #print(distinct_powers())
 #print(sub_str_div())
-print(champ_constant())
+#print(champ_constant())
+print(counting_sundays())
