@@ -19,28 +19,6 @@ def fibonacci():
         term1 = term2
         term2 = temp1 + term2 
     return sum
-
-
-def prime_fac():
-    # Example 20, 20 /2 = 10, 10 / 2 = 5, 
-    # 5 / 3, 
-    # 5 / 5 = 1, 
-    
-    num = 600851475143
-    startOdd = 3
-    
-    while (num % 2 == 0):
-        num /= 2
-    
-    while num != 1:
-        while (num % startOdd == 0):
-            last_num = num
-            num /= startOdd
-        startOdd += 2
-
-        
-    return int(last_num)
-    
             
 def three_digit_palindrome():
     cur = 0
@@ -483,6 +461,302 @@ def permuted_multiples():
             return num
     return False
 
+    """
+    p = 120
+    a,b,c = 20 48 52, Law of cosines? 
+    """
+def integ_right():
+    d = {}
+    for a in range(1, 10000):
+        for b in range(a, 10000):
+            c_squared = a**2 + b**2
+            c = sqrt(c_squared)
+            if c.is_integer():  
+                p = a + b + c
+                
+                if p >= 1000:
+                    break
+                if p not in d:
+                    d[p] = 1
+                else:
+                    d[p] += 1
+                                        
+    return max(d, key=d.get)
+
+def comb_selectors():
+    count = 0
+    for n in range(1, 101):
+        for r in range(1, n):
+            res = factorial(n) / (factorial(r) * factorial(n - r))
+            if res >= 1000000:
+                count += 1
+    return count
+
+def triangle_word(num):
+    for n in range(10000):
+        if num == (0.5 * n * (n + 1)):
+            return True
+    return False
+
+def triangle_nums():
+    with open('words.txt', 'r') as file:
+        f = file.read()
+    names = [name.strip('"') for name in f.split(',')]
+    
+    count = 0
+    for name in names:
+        word_res = 0
+        for char in name:
+            val = ord(char) - ord('A') + 1
+            word_res += val
+        if triangle_word(word_res):
+            count += 1
+    return count
+
+
+def prime_fac(num):
+    # Example 20, 20 /2 = 10, 10 / 2 = 5, 
+    # 5 / 3, 
+    # 5 / 5 = 1, 
+    startOdd = 3
+    #last_num = 1
+    facs = set()
+    
+    while (num % 2 == 0):
+        facs.add(2)
+        num //= 2
+    
+    while num != 1:
+        while (num % startOdd == 0):
+            facs.add(startOdd)
+            num //= startOdd
+        startOdd += 2
+        
+    return facs
+
+def get_prime_factors():
+    l_4 = []
+    count = 0
+    for num in range(647, 1000000):
+        if len(prime_fac(num)) == 4:
+            l_4.append(num)
+            count += 1
+            if count == 4:
+                return l_4[0]
+        else:
+            count = 0
+            l_4 = []
+    return l_4
+
+def check_pandig(num):
+    for n in range(1, len(str(num)) + 1):
+        if str(n) in str(num) and len(set(str(num))) == len(str(num)):
+            continue
+        else:
+            return False
+    return True
+
+#takes a while
+def pandig_prime():
+    val = 0
+    for num in range(4213, 10000000):
+        if is_prime(num) and check_pandig(num):
+            val = max(val, num)
+    return val
+
+def consec_primes():
+    max_chain = 0
+    for num in range(2, 1000000):
+        chain = 0
+        total = 0
+        if is_prime(num):
+            sub_num = 2
+            while total < num:
+                if is_prime(sub_num):
+                    total += sub_num
+                    chain += 1
+                sub_num += 1
+            if total == num:
+                max_chain = max(chain, max_chain)
+    return max_chain
+  
+def pand_multiples():
+    max_prod = 0
+    
+    for num in range(1, 10000):  # Upper limit is arbitrary but should be sufficient
+        pand_str = ""
+        mult = 1
+        while len(pand_str) < 9:
+            prod = num * mult
+            pand_str += str(prod)
+            if check_pandig(int(pand_str)):
+                max_prod = max(max_prod, int(pand_str))
+            mult += 1
+    
+    return max_prod
+
+
+        # if prod > 918273645:
+        #     print(prod)
+        #     max_prod = max(prod, max_prod)
+        
+        # prod = num * mult #9 * 2 = 18, 9 * 3 = 27 6
+        
+        # if mult == 3 and prod > 987654321:
+        #     break
+        
+        # if pand_str != "":
+            
+        #     for c in str(prod): 
+        #         if c not in pand_str:
+        #             pand_str += str(c)
+        #         else:
+        #             not_found = True
+        #             break
+                
+        #     if not_found == True:
+        #         pand_str = ""
+        #         mult = 2
+        #         num += 1
+        #     else:
+        #         mult+=1
+        #         not_found == False
+        # else:      
+        #     pand_str += str(prod)            #1827
+        #     mult += 1
+            
+    #return max_prod
+
+def find_repeating_cycle(s):
+    n = len(s)
+    for i in range(1, n // 2 + 1):
+        if n % i == 0:
+            cycle = s[:i]
+            if cycle * (n // i) == s:
+                return cycle
+    return None
+
+def recip_cycles():
+    max_repeat = 0
+    max_d = 0
+    
+    for d in range(1, 1000):
+        decimal_part = format(1 / d, '.10000f')
+        print(decimal_part)
+        #find repeating chars
+        cycle = find_repeating_cycle(decimal_part)
+        if cycle:
+            if len(cycle) > max_repeat:
+                max_d = d
+                max_repeat = len(cycle)
+    return max_d
+
+def factors1(n):
+    """Return the list of proper divisors of n (excluding n itself)."""
+    return [i for i in range(1, n//2 + 1) if n % i == 0]
+
+def amicable_numbers():
+    total = 0
+    seen = set()
+    #check if sum is over limit
+    for n in range(2, 10000): 
+        l  = factors1(n)
+        sum_fac = sum(l)
+        
+        if sum_fac != n and sum_fac < 10000:  # Check if it's not the same number and less than 10000
+            if sum(factors1(sum_fac)) == n and n not in seen:
+                seen.add(n)
+                seen.add(sum_fac)
+                total += n + sum_fac
+    return total
+
+def is_palindrome(s):
+    if s == s[::-1]:
+        return True
+    return False
+
+def lychrel_nums():
+    count = 0
+    found_pal = False
+    for nums in range(1, 10000):
+        cur_val = nums
+        for i in range(50):
+            cur_val = cur_val + int(str(cur_val)[::-1])
+            if is_palindrome(str(cur_val)):
+                found_pal = True
+        
+        if found_pal != True:
+            count += 1
+        found_pal = False    
+    return count  
+
+def pow_digit_sum():
+    total = 0
+    for a in range(1, 100):
+        for b in range(1, 100):
+            cur_sum = 0
+            for dig in str(a ** b):
+                cur_sum += int(dig)
+                
+            total = max(cur_sum, total)
+            
+    return total
+
+from fractions import Fraction
+
+def sqrt_conv(n): # 1 index 
+    fraction = Fraction(1, 2) 
+    for i in range(1, n):
+        fraction = 1 / (2 + fraction)
+    return 1 + fraction  
+    
+
+def frac_sqrt_conv():
+    count = 0
+    for i in range(1, 1000):
+        frac = sqrt_conv(i)
+        numerator, denominator = frac.numerator, frac.denominator
+        if len(str(numerator)) > len(str(denominator)):
+            count += 1
+    return count
+
+def shapes_nums():
+    for t in range(286, 1000):
+        t_n = t * (t + 1) / 2
+        for p in range(1000):
+            p_n = p * ((3 * p) - 1) / 2
+            for h in range(1000):
+                h_n = h * ((2 * h) - 1)
+                
+                if t_n == p_n == h_n:
+                    return t
+                
+def is_abundant(n):
+    return sum(factors1(n)) > n
+def abundant_sums():
+    total = 0
+    for a in range(5000, 7000):
+        for b in range(5000, 7000):
+            sum_abund = 0
+            if is_abundant(a) and is_abundant(b):
+                sum_abund = a + b
+                if sum_abund > 28123:
+                    return total
+                total += a + b
+
+def is_pentagonal(num):
+    for p_i in range(1, num):
+        if num == p_i * ((3 * p_i) - 1) / 2:
+            return True
+    return False
+
+def pent_sum():
+    for p1 in range(1, 1000):
+        for p2 in range(1, 1000): 
+            if is_pentagonal(p1) and is_pentagonal(p2):
+                if is_pentagonal(p1 + p2) and is_pentagonal(abs(p2 - p1)):
+                    return abs(p2 - p1)
+    
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -659,4 +933,19 @@ if __name__=="__main__":
 #print(sub_str_div())
 #print(champ_constant())
 #print(counting_sundays())
-print(permuted_multiples())
+#print(permuted_multiples())
+#print(integ_right())
+#print(comb_selectors())
+#print(triangle_nums())
+#print(get_prime_factors())
+#print((pandig_prime()))
+#print(consec_primes())
+#print(pand_multiples())
+#print(recip_cycles())
+#print(amicable_numbers())
+#print(lychrel_nums())
+#print(pow_digit_sum())
+#print(frac_sqrt_conv())
+#print(shapes_nums())
+#print(abundant_sums())
+print(pent_sum())
