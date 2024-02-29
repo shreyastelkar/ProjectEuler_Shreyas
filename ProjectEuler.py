@@ -323,10 +323,6 @@ def triangle_factors():
         n = n + i  
     return n
 
-def num_letter_count():
-    #single = [3, 3, 5, 4, 4, 3, 5, 5, 4, 3, 6, 6]
-    pass
-
 def dbase_palindrome():
     res = 0
     for num in range(1000000):
@@ -756,7 +752,43 @@ def pent_sum():
             if is_pentagonal(p1) and is_pentagonal(p2):
                 if is_pentagonal(p1 + p2) and is_pentagonal(abs(p2 - p1)):
                     return abs(p2 - p1)
-    
+
+def num_letter():
+    single = [3, 3, 5, 4, 4, 3, 5, 5, 4, 3, 6, 6, 8, 8, 7, 7, 9, 8, 8] # 1-19
+    tens = [3, 6, 6, 5, 5, 5, 7, 6, 6] # 20-90
+    HUNDRED = 7
+    THOUSAND = 11
+    AND = 3
+    total = 0
+
+    for cur_num in range(1, 1001):
+        count_num = 0
+      
+        if cur_num == 1000:
+            count_num += THOUSAND
+            
+        if cur_num < 1000 and cur_num >= 100:
+            count_num += single[(cur_num // 100) - 1] + HUNDRED
+            cur_num = cur_num % 100
+            
+            if cur_num != 0:  
+                count_num += AND
+            
+                
+        if cur_num < 100 and cur_num != 0:
+            if cur_num // 10 != 0:
+                if cur_num > 10 and cur_num < 20:
+                    count_num += single[cur_num - 1]
+                else:
+                    count_num += tens[(cur_num//10) - 1]
+            
+            if cur_num % 10 != 0 and not (cur_num > 10 and cur_num < 20):
+                count_num += single[(cur_num % 10) - 1]
+
+
+        total += count_num
+    return total
+                
 if __name__=="__main__":
     
     #print(mult_3and5())
@@ -948,4 +980,5 @@ if __name__=="__main__":
 #print(frac_sqrt_conv())
 #print(shapes_nums())
 #print(abundant_sums())
-print(pent_sum())
+#print(pent_sum())
+print(num_letter())
