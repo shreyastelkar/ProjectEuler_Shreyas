@@ -1,5 +1,6 @@
 from math import sqrt
 
+
 def mult_3and5():
     cur_sum = 0
     for num in range(1000):
@@ -307,6 +308,7 @@ def name_scores():
 
 import math
 
+
 def factors(n):
     fac = set()
     for i in range(1, int(math.sqrt(n)) + 1):
@@ -355,6 +357,7 @@ def self_powers():
     return str(res)[-10:]
 
 from itertools import permutations
+
 
 def number_permutations(number):
     # Convert the number to a list of its digits
@@ -414,6 +417,8 @@ def champ_constant():
     return int(res_str[0]) * int(res_str[9]) * int(res_str[99]) * int(res_str[999]) * int(res_str[9999]) * int(res_str[99999]) * int(res_str[999999])
 
 from enum import Enum
+
+
 def counting_sundays():
     #Simulate days from (1 Jan 1900) to (31 Dec 2000) and count Sundays that fell on the first of the month, only count from 1901 to 2000
     #reset day after hitting days_month
@@ -700,6 +705,7 @@ def pow_digit_sum():
 
 from fractions import Fraction
 
+
 def sqrt_conv(n): # 1 index 
     fraction = Fraction(1, 2) 
     for i in range(1, n):
@@ -788,7 +794,10 @@ def num_letter():
 
         total += count_num
     return total
-                
+
+def coin_sums():
+    pass
+
 if __name__=="__main__":
     
     #print(mult_3and5())
